@@ -1,16 +1,16 @@
 <template>
   <q-page class="column-lg justify-center">
-    <ContainerComponent />
+    <ContainerComponent/>
   </q-page>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import {defineComponent} from 'vue';
 import ContainerComponent from 'components/ContainerComponent.vue';
 
 export default defineComponent({
   name: 'IndexPage',
-  components: { ContainerComponent },
+  components: {ContainerComponent},
 });
 </script>
 

@@ -1,9 +1,9 @@
-import { ref } from 'vue';
+import {ref} from 'vue';
 
 type HoveredType = { col: number; row: number; table: string };
 
 export const useHoverTable = () => {
-  const hovered = ref<HoveredType>({ table: '', col: -1, row: -1 });
+  const hovered = ref<HoveredType>({table: '', col: -1, row: -1});
 
   const hoverCol = (index: number) => {
     hovered.value.col = index;
@@ -20,5 +20,5 @@ export const useHoverTable = () => {
     hovered.value.row = -1;
   };
 
-  return { hovered, hoverCol, hoverRow, hoverTable, clearHover };
+  return {hovered, hoverCol, hoverRow, hoverTable, clearHover};
 };

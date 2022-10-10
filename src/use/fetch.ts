@@ -1,5 +1,5 @@
-import { client } from 'src/api/index.';
-import { AxiosRequestConfig, AxiosResponse } from 'axios';
+import {client} from 'src/api/index.';
+import {AxiosRequestConfig, AxiosResponse} from 'axios';
 
 export const useFetch = async <T>(
   url: string,
@@ -7,5 +7,5 @@ export const useFetch = async <T>(
 ) => {
   const response = await client.get(url, options);
 
-  return { ...response } as AxiosResponse<T>;
+  return {...response} as AxiosResponse<T>;
 };

@@ -55,7 +55,7 @@ export type PredicateType<P> = (value: P, index: number, array: P[]) => boolean;
 type FilterDataType = ComputedRef<FlatType[]>
 
 export type FilterType = {
-  refData:  UnwrapRef<FlatType[]>;
+  refData: UnwrapRef<FlatType[]>;
   bookingData: FilterDataType;
   issuedData: FilterDataType;
   subsidy: FilterDataType;

@@ -1,4 +1,4 @@
-import { ref } from 'vue';
+import {ref} from 'vue';
 
 export const useShowDialog = () => {
   const open = ref<boolean>(false);
@@ -8,5 +8,5 @@ export const useShowDialog = () => {
     id.value = index;
   };
 
-  return { open, id, getId };
+  return {open, id, getId};
 };
