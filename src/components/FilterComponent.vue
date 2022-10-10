@@ -45,9 +45,10 @@
       <q-range
         @change="onChange"
         v-model="standard"
-        :min="500000"
-        :max="100E6"
+        :min="900000"
+        :max="50E6"
       />
+      <b>min {{standard.min}} - max {{ standard.max }}</b>
     </div>
   </div>
 </template>
