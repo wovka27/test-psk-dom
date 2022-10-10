@@ -1,22 +1,36 @@
 <template>
-  <div class="cell"
-       :class="{
-          'success': itemData.status === 'Свободна',
-          'empty': !Boolean(itemData.plan_type),
-          'booking': itemData.status === 'Бронь',
-          'issued': itemData.status === 'Выданы ключи',
-          'installment': itemData.status === 'Рассрочка',
-          'filter': filterData.length !== 0 && !filterData.includes(itemData),
-       }">
+  <div
+    class="cell"
+    :class="{
+      success: itemData.status === 'Свободна',
+      empty: !Boolean(itemData.plan_type),
+      booking: itemData.status === 'Бронь',
+      issued: itemData.status === 'Выданы ключи',
+      installment: itemData.status === 'Рассрочка',
+      filter: filterData.length !== 0 && !filterData.includes(itemData),
+    }"
+  >
     <b>{{ itemData.plan_type }}</b>
-    <i v-if="itemData.subsidy" :class="{'subsidy': itemData.subsidy}"></i>
-    <i v-if="itemData.renovation" :class="{'renovation': itemData.renovation}"></i>
+    <i v-if="itemData.subsidy" :class="{ subsidy: itemData.subsidy }"></i>
+    <i
+      v-if="itemData.renovation"
+      :class="{ renovation: itemData.renovation }"
+    ></i>
     <q-tooltip :delay="500">
       <div class="row justify-between bi-align-center">
-        <b class="text-subtitle2">{{ itemData.plan_type }} - {{ itemData.type }}</b>
-        <b class="text-subtitle2 q-ml-lg">№{{ itemData.number }} {{ itemData.renovation ? 'с ремонтом' : '' }}</b>
+        <b class="text-subtitle2"
+          >{{ itemData.plan_type }} - {{ itemData.type }}</b
+        >
+        <b class="text-subtitle2 q-ml-lg"
+          >№{{ itemData.number }}
+          {{ itemData.renovation ? 'с ремонтом' : '' }}</b
+        >
       </div>
-      <div v-if="itemData.status !== 'Выданы ключи' && itemData.status !== 'Договор'">
+      <div
+        v-if="
+          itemData.status !== 'Выданы ключи' && itemData.status !== 'Договор'
+        "
+      >
         <h4>{{ itemData.cost }} ₽</h4>
       </div>
       <div v-else class="q-mt-xl"></div>
@@ -24,7 +38,6 @@
         <p v-if="itemData.subsidy">Субсидия</p>
         <p v-if="itemData.renovation">Ремонт</p>
         <p v-if="itemData.installment">Рассрочка</p>
-
       </div>
       <div class="row justify-between">
         <p class="text-subtitle1">{{ itemData.square }} m&#178;</p>
@@ -35,9 +48,9 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, PropType} from 'vue';
-import {FlatType} from 'src/types';
-import {useFilterStore} from 'stores/filter-store';
+import { defineComponent, PropType } from 'vue';
+import { FlatType } from 'src/types';
+import { useFilterStore } from 'stores/filter-store';
 
 export default defineComponent({
   name: 'CellComponent',
@@ -46,13 +59,13 @@ export default defineComponent({
       type: Object as PropType<FlatType>,
     },
     filterItem: {
-      type: Object as PropType<FlatType | undefined>
+      type: Object as PropType<FlatType | undefined>,
     },
   },
   setup() {
-    const {filterData} = useFilterStore();
-    return {filterData}
-  }
+    const { filterData } = useFilterStore();
+    return { filterData };
+  },
 });
 </script>
 

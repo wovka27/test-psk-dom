@@ -2,7 +2,7 @@ export type DataType = {
   flats: Record<string, FlatType>;
   houses: string[];
   entrances: EntranceType[];
-}
+};
 
 export type EntranceType = {
   flats_max: number;
@@ -10,17 +10,17 @@ export type EntranceType = {
   house_id: string;
   id: string;
   title: string;
-}
+};
 
 export type FloorType = {
   flats: FloorFlatType[];
   floor: number;
-}
+};
 
 export type FloorFlatType = {
   id: string;
   number: number;
-}
+};
 
 export type FlatType = {
   article: null;
@@ -37,7 +37,7 @@ export type FlatType = {
   status: string;
   subsidy: boolean;
   type: string;
-}
+};
 
 export enum StatusApartmentEnum {
   FREE = 'Свободна',
@@ -46,8 +46,8 @@ export enum StatusApartmentEnum {
   CONTRACT = 'Договор',
 }
 
-export type MinMaxType = { min: number; max: number }
-export type ItemType = { text: string; arr: FlatType[] }
+export type MinMaxType = { min: number; max: number };
+export type ItemType = { text: string; arr: FlatType[] };
 
 export type FilterType = {
   refData: FlatType[];
@@ -60,4 +60,4 @@ export type FilterType = {
   marginal: FlatType[];
   setFilterData: (d: FlatType[]) => void;
   onChangeItem: (key: keyof FlatType | null) => (value: MinMaxType) => void;
-}
+};
