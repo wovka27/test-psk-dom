@@ -86,7 +86,7 @@ export default defineComponent({
       freeData,
       onChangeItem,
       setFilterData
-    } = computed(() => props.filter).value;
+    } = ref(props.filter).value;
 
     const rangeState = ref<{ price: MinMaxType; square: MinMaxType }>({
       price: {min: 0, max: 0},
