@@ -15,7 +15,7 @@
         <b class="text-subtitle2">{{ itemData.plan_type }} - {{ itemData.type }}</b>
         <b class="text-subtitle2 q-ml-lg">№{{ itemData.number }} {{ itemData.renovation ? 'с ремонтом' : '' }}</b>
       </div>
-      <div v-if="itemData.status !== ('Выданы ключи' || 'Договор')">
+      <div v-if="itemData.status !== 'Выданы ключи' && itemData.status !== 'Договор'">
         <h4>{{ itemData.cost }} ₽</h4>
       </div>
       <div v-else class="q-mt-xl"></div>
