@@ -11,7 +11,7 @@
     <b>{{ itemData.plan_type }}</b>
     <i v-if="itemData.subsidy" :class="{'subsidy': itemData.subsidy}"></i>
     <i v-if="itemData.renovation" :class="{'renovation': itemData.renovation}"></i>
-    <q-tooltip delay="500">
+    <q-tooltip delay=500>
       <div class="row justify-between bi-align-center">
         <b class="text-subtitle2">{{ itemData.plan_type }} - {{ itemData.type }}</b>
         <b class="text-subtitle2 q-ml-lg">№{{ itemData.number }} {{ itemData.renovation ? 'с ремонтом' : '' }}</b>
@@ -66,15 +66,9 @@ export default defineComponent({
   background-color: rgba(68, 67, 67, 0.51);
 
   &.filter {
-    background-color: white;
+    opacity: 0;
     & > i {
       display: none;
-    }
-    &.booking, &.success, &.issued, &.busy {
-      background-color: white;
-      & >b {
-        color: white;
-      }
     }
   }
 

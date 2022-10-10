@@ -1,5 +1,5 @@
 <template>
-  <div class="q-pa-md row justify-between">
+  <div class="q-pa-md">
     <q-btn-group rounded>
       <q-btn
         @click="setFilterData(filter.dataCount)"
@@ -36,20 +36,38 @@
               <q-item-label>Ремонт({{ filter.renovationCount.length }})</q-item-label>
             </q-item-section>
           </q-item>
+          <q-item clickable @click="setFilterData(filter.marginalData)">
+            <q-item-section>
+              <q-item-label>Маржа({{ filter.marginalData.length }})</q-item-label>
+            </q-item-section>
+          </q-item>
 
         </q-list>
       </q-btn-dropdown>
     </q-btn-group>
+    <q-separator class="q-mt-md q-mb-md"/>
     <div style="width: 200px">
-      <q-badge color="primary" > По цене </q-badge>
+      <q-badge color="primary"> По цене</q-badge>
       <q-range
-        @change="onChange"
+        @change="onChangePrice"
         v-model="standard"
-        :min="900000"
+        :min="500000"
         :max="50E6"
       />
-      <b>min {{standard.min}} - max {{ standard.max }}</b>
+      <b>min {{ standard.min }} - max {{ standard.max }}</b>
     </div>
+    <q-separator class="q-mt-md q-mb-md"/>
+    <div style="width: 200px">
+      <q-badge color="primary"> По площади</q-badge>
+      <q-range
+        @change="onChangeSquare"
+        v-model="square"
+        :min="10"
+        :max="150"
+      />
+      <b>min {{ square.min }} - max {{ square.max }}</b>
+    </div>
+    <q-separator class="q-mt-md q-mb-md"/>
   </div>
 </template>
 
@@ -70,6 +88,7 @@ export default defineComponent({
         installmentCount: FlatType[],
         renovationCount: FlatType[],
         freeDataCount: FlatType[],
+        marginalData: FlatType[],
         setFilterData: (d: FlatType[]) => void,
       }>,
       required: true,
@@ -77,14 +96,17 @@ export default defineComponent({
   },
   setup(props) {
     const {setFilterData} = useFilterStore()
-    const standard = ref<{min?: number; max?: number}>({})
-    const onChange = (value: {min: number; max: number}) => {
-      const arr = (!isNaN(value.min) && !isNaN(value.max)) && props.filter.dataCount.filter(item => item.cost >= value.min && item.cost <= value.max)
+    const standard = ref<{ min?: number; max?: number }>({})
+    const square = ref<{ min?: number; max?: number }>({})
+    const onChangeHOF = (key: keyof FlatType | null) => (value: { min: number; max: number }) => {
+      const arr = (!isNaN(value.min) && !isNaN(value.max))  && props.filter.dataCount.filter(item => item[key] >= value.min && item[key] <= value.max)
       if (arr) {
-        setFilterData(arr)
+        setFilterData(arr);
       }
     }
-    return {setFilterData, onChange, standard}
+    const onChangePrice = onChangeHOF('cost');
+    const onChangeSquare = onChangeHOF('square');
+    return {setFilterData, onChangePrice, standard, onChangeSquare, square}
   }
 })
 </script>
