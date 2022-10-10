@@ -51,8 +51,8 @@
       <q-range
         @change="onChangePrice"
         v-model="standard"
-        :min="500000"
-        :max="50E6"
+        :min="Math.min(...filter.dataCount.map(item=>item.cost))"
+        :max="Math.max(...filter.dataCount.map(item=>item.cost))"
       />
       <b>min {{ standard.min }} - max {{ standard.max }}</b>
     </div>
@@ -62,8 +62,8 @@
       <q-range
         @change="onChangeSquare"
         v-model="square"
-        :min="10"
-        :max="150"
+        :min="Math.min(...filter.dataCount.map(item=>item.square))"
+        :max="Math.max(...filter.dataCount.map(item=>item.square))"
       />
       <b>min {{ square.min }} - max {{ square.max }}</b>
     </div>
@@ -99,7 +99,7 @@ export default defineComponent({
     const standard = ref<{ min?: number; max?: number }>({})
     const square = ref<{ min?: number; max?: number }>({})
     const onChangeHOF = (key: keyof FlatType | null) => (value: { min: number; max: number }) => {
-      const arr = (!isNaN(value.min) && !isNaN(value.max))  && props.filter.dataCount.filter(item => item[key] >= value.min && item[key] <= value.max)
+      const arr = (!isNaN(value.min) && !isNaN(value.max))  && props.filter.dataCount.filter(item => item[key] && item[key] >= value.min && item[key] <= value.max)
       if (arr) {
         setFilterData(arr);
       }
