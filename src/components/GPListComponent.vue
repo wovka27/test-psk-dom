@@ -39,7 +39,7 @@
   <q-dialog v-model="open">
     <q-card >
       <q-card-section class="row items-center q-pb-none">
-        <div class="text-h6">Квартира № {{ data.flats[id].number }} {{ data.flats[id].renovation ? 'с ремонтом' : '' }}</div>
+        <div class="text-h6">{{ data.flats[id].type }} № {{ data.flats[id].number }} {{ data.flats[id].renovation ? 'с ремонтом' : '' }}</div>
         <q-space />
         <q-btn icon="close" flat round dense v-close-popup />
       </q-card-section>
@@ -74,7 +74,7 @@
 import {defineComponent, PropType} from 'vue'
 import CellComponent from 'components/CellComponent.vue';
 import {useHoverTable, useShowDialog} from 'src/use';
-import {DataType, FlatType} from 'src/types';
+import {DataType} from 'src/types';
 import {useFilterStore} from 'stores/filter-store';
 
 export default defineComponent({

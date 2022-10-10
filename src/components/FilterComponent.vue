@@ -15,12 +15,12 @@
           </q-item>
           <q-item clickable>
             <q-item-section>
-              <q-item-label>Photos</q-item-label>
+              <q-item-label>Субсидия</q-item-label>
             </q-item-section>
           </q-item>
           <q-item clickable>
             <q-item-section>
-              <q-item-label>Photos</q-item-label>
+              <q-item-label>Ремонт</q-item-label>
             </q-item-section>
           </q-item>
 
