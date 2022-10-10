@@ -20,14 +20,15 @@
           >
             <q-item-section>
               <q-item-label
-                >{{ item.text }}({{ item.arr.length }})</q-item-label
+              >{{ item.text }}({{ item.arr.length }})
+              </q-item-label
               >
             </q-item-section>
           </q-item>
         </q-list>
       </q-btn-dropdown>
     </q-btn-group>
-    <q-separator class="q-mt-md q-mb-md" />
+    <q-separator class="q-mt-md q-mb-md"/>
     <div style="width: 200px">
       <q-badge color="primary"> По цене</q-badge>
       <q-range
@@ -38,7 +39,7 @@
       />
       <b>min {{ rangeState.price.min }} - max {{ rangeState.price.max }}</b>
     </div>
-    <q-separator class="q-mt-md q-mb-md" />
+    <q-separator class="q-mt-md q-mb-md"/>
     <div style="width: 200px">
       <q-badge color="primary"> По площади</q-badge>
       <q-range
@@ -49,7 +50,7 @@
       />
       <b>min {{ rangeState.square.min }} - max {{ rangeState.square.max }}</b>
     </div>
-    <q-separator class="q-mt-md q-mb-md" />
+    <q-separator class="q-mt-md q-mb-md"/>
 
     <q-btn-dropdown
       auto-close
@@ -71,24 +72,26 @@
         </q-item>
       </q-list>
     </q-btn-dropdown>
-    <q-separator class="q-mt-md q-mb-md" />
+    <q-separator class="q-mt-md q-mb-md"/>
   </div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, PropType, ref } from 'vue';
-import { FilterType, ItemType, MinMaxType } from 'src/types';
+import {computed, defineComponent, onMounted, PropType, ref} from 'vue';
+import {FilterType, ItemType, MinMaxType} from 'src/types';
 
 const planTypeItems = ['1K', '2K', '3K', '3E', '2E', 'C', '4E'];
 
 export default defineComponent({
   name: 'FilterComponent',
+
   props: {
     filter: {
       type: Object as PropType<FilterType>,
       required: true,
     },
   },
+
   setup(props) {
     const {
       installment,
@@ -103,23 +106,21 @@ export default defineComponent({
     } = ref(props.filter).value;
 
     const rangeState = ref<{ price: MinMaxType; square: MinMaxType }>({
-      price: { min: 0, max: 0 },
-      square: { min: 0, max: 0 },
+      price: {min: 0, max: 0},
+      square: {min: 0, max: 0},
     }).value;
 
     const dropdownItemList = ref<ItemType[]>([
-      { text: 'Рассрочка', arr: installment },
-      { text: 'Субсидия', arr: subsidy },
-      { text: 'Ремонт', arr: renovation },
-      { text: 'Маржа', arr: marginal },
+      {text: 'Рассрочка', arr: installment},
+      {text: 'Субсидия', arr: subsidy},
+      {text: 'Ремонт', arr: renovation},
+      {text: 'Маржа', arr: marginal},
     ]);
 
-    const btnItemsList = ref<
-      Array<ItemType & { color: string; length?: number }>
-    >([
-      { text: 'Найдено', arr: [], color: 'secondary', length: refData.length },
-      { text: 'Бронь', arr: bookingData, color: 'warning' },
-      { text: 'Свободно', arr: freeData, color: 'positive' },
+    const btnItemsList = ref<Array<ItemType & { color: string; length?: number }>>([
+      {text: 'Найдено', arr: [], color: 'secondary', length: refData.length},
+      {text: 'Бронь', arr: bookingData, color: 'warning'},
+      {text: 'Свободно', arr: freeData, color: 'positive'},
     ]);
 
     const getRangeValue = () => {
@@ -128,6 +129,7 @@ export default defineComponent({
       rangeState.square.max = Math.max(...refData.map((item) => item.square));
       rangeState.square.min = Math.min(...refData.map((item) => item.square));
     };
+
     const onChangePrice = onChangeItem('cost');
     const onChangeSquare = onChangeItem('square');
 
