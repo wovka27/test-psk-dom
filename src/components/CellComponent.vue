@@ -6,6 +6,7 @@
           'booking': itemData.status === 'Бронь',
           'issued': itemData.status === 'Выданы ключи',
           'installment': itemData.status === 'Рассрочка',
+          'filter': filterItem && (filterItem.id === itemData.id) ,
        }">
     <b>{{ itemData.plan_type }}</b>
     <i v-if="itemData.subsidy" :class="{'subsidy': itemData.subsidy}"></i>
@@ -42,6 +43,9 @@ export default defineComponent({
   props: {
     itemData: {
       type: Object as PropType<FlatType>,
+    },
+    filterItem: {
+      type: Object as PropType<FlatType | undefined>
     },
   },
 });

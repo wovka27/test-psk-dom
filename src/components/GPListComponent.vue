@@ -27,7 +27,8 @@
             :subsidy="data.flats[flat.id].subsidy"
             :renovation="data.flats[flat.id].renovation"
             :msg="data.flats[flat.id].plan_type"
-            :item-data="data.flats[flat.id]"/>
+            :item-data="data.flats[flat.id]"
+            :filter-item="filterData[flat.id]"/>
         </td>
       </tr>
 
@@ -35,7 +36,7 @@
       </tbody>
     </table>
   </div>
-  <q-dialog v-model="icon">
+  <q-dialog v-model="open">
     <q-card >
       <q-card-section class="row items-center q-pb-none">
         <div class="text-h6">Квартира № {{ data.flats[id].number }} {{ data.flats[id].renovation ? 'с ремонтом' : '' }}</div>
@@ -70,10 +71,11 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, PropType, ref} from 'vue'
+import {defineComponent, PropType} from 'vue'
 import CellComponent from 'components/CellComponent.vue';
-import {useHoverTable} from 'src/use';
-import {DataType} from 'src/types';
+import {useHoverTable, useShowDialog} from 'src/use';
+import {DataType, FlatType} from 'src/types';
+import {useFilterStore} from 'stores/filter-store';
 
 export default defineComponent({
   name: 'GPListComponent',
@@ -81,17 +83,13 @@ export default defineComponent({
   props: {
     data: {
       type: Object as PropType<DataType>
-    }
+    },
   },
-  setup(props) {
+  setup() {
     const {hovered, hoverTable, hoverCol, hoverRow, clearHover} = useHoverTable()
-    const icon = ref<boolean>(false)
-    const id = ref<string>('')
-    const getId = (index: string) => {
-      icon.value = true;
-      id.value = index;
-    }
-    return {hovered, hoverTable, hoverCol, hoverRow, clearHover, icon, getId, id};
+    const {id, open, getId} = useShowDialog()
+    const {filterData} = useFilterStore();
+    return {hovered, hoverTable, hoverCol, hoverRow, clearHover, open, getId, id, filterData};
   }
 })
 </script>

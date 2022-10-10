@@ -1,12 +1,12 @@
 <template>
   <div class="q-pa-md">
     <q-btn-group rounded>
-      <q-btn rounded color="secondary" :label="`Найдено(${dataCount})`" />
+      <q-btn @click="setFilterData(filter.dataCount)" rounded color="secondary" :label="`Найдено(${filter.dataCount.length})`"/>
 
-      <q-btn rounded color="warning" :label="`Бронь(${bookingDataCount})`" />
-      <q-btn rounded color="positive" :label="`Свободно(${freeDataCount})`" />
+      <q-btn @click="setFilterData(filter.bookingDataCount)" rounded color="warning" :label="`Бронь(${filter.bookingDataCount.length})`"/>
+      <q-btn @click="setFilterData(filter.freeDataCount)" rounded color="positive" :label="`Свободно(${filter.freeDataCount.length})`"/>
 
-      <q-btn-dropdown auto-close rounded color="negative" :label="`Занято(${issuedDataCount})`" split>
+      <q-btn-dropdown auto-close rounded color="primary" label="Еще" split>
         <q-list padding style="width: 250px">
           <q-item clickable>
             <q-item-section>
@@ -32,19 +32,29 @@
 
 <script lang="ts">
 import {defineComponent, PropType} from 'vue'
-import {DataType} from 'src/types';
-import {useFilter} from 'src/use/filter';
+import {FlatType} from 'src/types';
+import {useFilterStore} from 'stores/filter-store';
+
 export default defineComponent({
   name: 'FilterComponent',
   props: {
-    data: {
-      type: Object as PropType<DataType>,
+    filter: {
+      type: Object as PropType<{
+        dataCount: FlatType[],
+        bookingDataCount: FlatType[],
+        issuedDataCount: FlatType[],
+        subsidyCount: FlatType[],
+        installmentCount: FlatType[],
+        renovationCount: FlatType[],
+        freeDataCount: FlatType[],
+        setFilterData: (d: FlatType[]) => void,
+      }>,
       required: true,
-    }
+    },
   },
-  setup(props) {
-    const {dataCount, bookingDataCount, issuedDataCount, subsidyCount, installmentCount, renovationCount, freeDataCount} = useFilter(props.data)
-    return {dataCount, bookingDataCount, issuedDataCount, subsidyCount, installmentCount, renovationCount, freeDataCount};
+  setup(){
+    const {setFilterData} = useFilterStore()
+    return {setFilterData}
   }
 })
 </script>
