@@ -1,3 +1,5 @@
+import {ComputedRef, UnwrapRef} from 'vue';
+
 export type DataType = {
   flats: Record<string, FlatType>;
   houses: string[];
@@ -48,16 +50,19 @@ export enum StatusApartmentEnum {
 
 export type MinMaxType = { min: number; max: number };
 export type ItemType = { text: string; arr: FlatType[] };
+export type PredicateType<P> = (value: P, index: number, array: P[]) => boolean;
+
+type FilterDataType = ComputedRef<FlatType[]>
 
 export type FilterType = {
-  refData: FlatType[];
-  bookingData: FlatType[];
-  issuedData: FlatType[];
-  subsidy: FlatType[];
-  installment: FlatType[];
-  renovation: FlatType[];
-  freeData: FlatType[];
-  marginal: FlatType[];
+  refData:  UnwrapRef<FlatType[]>;
+  bookingData: FilterDataType;
+  issuedData: FilterDataType;
+  subsidy: FilterDataType;
+  installment: FilterDataType;
+  renovation: FilterDataType;
+  freeData: FilterDataType;
+  marginal: FilterDataType;
   setFilterData: (d: FlatType[]) => void;
   onChangeItem: (key: keyof FlatType | null) => (value: MinMaxType) => void;
 };

@@ -1,15 +1,13 @@
-import { computed, ref } from 'vue';
-import { DataType, FlatType, StatusApartmentEnum } from 'src/types';
-import { useFilterStore } from 'stores/filter-store';
-
-export type PredicateType<P> = (value: P, index: number, array: P[]) => boolean;
+import {computed, ref} from 'vue';
+import {DataType, FilterType, FlatType, PredicateType, StatusApartmentEnum} from 'src/types';
+import {useFilterStore} from 'stores/filter-store';
 
 const getCount = <T>(data: T[], predicate: PredicateType<T>) => {
   return data.filter(predicate);
 };
 
 export const useFilter = (data: DataType) => {
-  const { setFilterData, filterData } = useFilterStore();
+  const {setFilterData, filterData} = useFilterStore();
   const refData = ref<FlatType[]>(Object.values(data.flats)).value;
 
   const bookingData = computed(() =>
@@ -58,5 +56,5 @@ export const useFilter = (data: DataType) => {
     filterData,
     marginal,
     onChangeItem,
-  };
+  } as FilterType;
 };
