@@ -9,7 +9,9 @@ export const useFilterStore = defineStore('filterData', {
   },
   actions: {
    setFilterData(data: FlatType[]){
-     this.filterData = data
+     this.filterData.splice(0, this.filterData.length)
+     this.filterData.push(...data)
+     console.log('this.filterData', this.filterData);
    }
   },
 });

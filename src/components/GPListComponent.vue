@@ -74,7 +74,7 @@
 import {defineComponent, PropType} from 'vue'
 import CellComponent from 'components/CellComponent.vue';
 import {useHoverTable, useShowDialog} from 'src/use';
-import {DataType} from 'src/types';
+import {DataType, FlatType} from 'src/types';
 import {useFilterStore} from 'stores/filter-store';
 
 export default defineComponent({
@@ -84,11 +84,15 @@ export default defineComponent({
     data: {
       type: Object as PropType<DataType>
     },
+    filter: {
+      type: Array as PropType<FlatType[]>,
+    }
   },
-  setup() {
+  setup(props) {
     const {hovered, hoverTable, hoverCol, hoverRow, clearHover} = useHoverTable()
     const {id, open, getId} = useShowDialog()
     const {filterData} = useFilterStore();
+    console.log(props.filter);
     return {hovered, hoverTable, hoverCol, hoverRow, clearHover, open, getId, id, filterData};
   }
 })

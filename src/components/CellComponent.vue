@@ -6,7 +6,7 @@
           'booking': itemData.status === 'Бронь',
           'issued': itemData.status === 'Выданы ключи',
           'installment': itemData.status === 'Рассрочка',
-          'filter': filterItem && (filterItem.id === itemData.id) ,
+          'filter': !filterData.includes(itemData),
        }">
     <b>{{ itemData.plan_type }}</b>
     <i v-if="itemData.subsidy" :class="{'subsidy': itemData.subsidy}"></i>
@@ -37,6 +37,7 @@
 <script lang="ts">
 import {defineComponent, PropType} from 'vue';
 import {FlatType} from 'src/types';
+import {useFilterStore} from 'stores/filter-store';
 
 export default defineComponent({
   name: 'CellComponent',
@@ -48,6 +49,10 @@ export default defineComponent({
       type: Object as PropType<FlatType | undefined>
     },
   },
+  setup() {
+    const {filterData} = useFilterStore();
+    return {filterData}
+  }
 });
 </script>
 
@@ -61,7 +66,16 @@ export default defineComponent({
   background-color: rgba(68, 67, 67, 0.51);
 
   &.filter {
-    opacity: 0;
+    background-color: white;
+    & > b {
+      font-size: 0;
+    }
+    & > i {
+      display: none;
+    }
+    &.booking, &.success, &.issued, &.busy {
+      opacity: 0;
+    }
   }
 
   &.empty {
