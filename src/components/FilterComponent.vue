@@ -54,7 +54,7 @@
         :min="Math.min(...filter.dataCount.map(item=>item.cost))"
         :max="Math.max(...filter.dataCount.map(item=>item.cost))"
       />
-      <b>min {{ standard.min }} - max {{ standard.max }}</b>
+      <b>min {{  isNaN(standard.min) ? '' : standard.min }} - max {{ standard.max }}</b>
     </div>
     <q-separator class="q-mt-md q-mb-md"/>
     <div style="width: 200px">
@@ -65,14 +65,29 @@
         :min="Math.min(...filter.dataCount.map(item=>item.square))"
         :max="Math.max(...filter.dataCount.map(item=>item.square))"
       />
-      <b>min {{ square.min }} - max {{ square.max }}</b>
+      <b>min {{ isNaN(square.min) ? '' : square.min }} - max {{ square.max }}</b>
     </div>
+    <q-separator class="q-mt-md q-mb-md"/>
+
+    <q-btn-dropdown auto-close rounded color="primary" label="Тип недвижимости" split>
+      <q-list padding style="width: 250px">
+        <q-item
+          :key="item"
+          v-for="item of ['1K','2K','3K','3E','2E','C','4E']"
+          clickable
+          @click="filterPlan(item)">
+          <q-item-section>
+            <q-item-label>{{ item }}</q-item-label>
+          </q-item-section>
+        </q-item>
+      </q-list>
+    </q-btn-dropdown>
     <q-separator class="q-mt-md q-mb-md"/>
   </div>
 </template>
 
 <script lang="ts">
-import {defineComponent, PropType, ref} from 'vue'
+import {computed, defineComponent, PropType, ref} from 'vue'
 import {FlatType} from 'src/types';
 import {useFilterStore} from 'stores/filter-store';
 
@@ -98,8 +113,15 @@ export default defineComponent({
     const {setFilterData} = useFilterStore()
     const standard = ref<{ min?: number; max?: number }>({})
     const square = ref<{ min?: number; max?: number }>({})
+    const planTypeList = computed(() => props.filter.dataCount.filter(item => item.plan_type))
+    const filterPlan = (type: string) => {
+      const newFilterData = computed(() => props.filter.dataCount.filter(item => item.plan_type === type));
+      if (newFilterData.value) {
+        setFilterData(newFilterData.value);
+      }
+    }
     const onChangeItem = (key: keyof FlatType | null) => (value: { min: number; max: number }) => {
-      const arr = (!isNaN(value.min) && !isNaN(value.max))  && props.filter.dataCount.filter(item => item[key] && item[key] >= value.min && item[key] <= value.max)
+      const arr = (!isNaN(value.min) && !isNaN(value.max)) && props.filter.dataCount.filter(item => item[key] && item[key] >= value.min && item[key] <= value.max)
       if (arr) {
         setFilterData(arr);
       }
@@ -107,7 +129,7 @@ export default defineComponent({
     const onChangePrice = onChangeItem('cost');
     const onChangeSquare = onChangeItem('square');
 
-    return {setFilterData, onChangePrice, standard, onChangeSquare, square}
+    return {setFilterData, onChangePrice, standard, onChangeSquare, square, planTypeList, filterPlan}
   }
 })
 </script>
