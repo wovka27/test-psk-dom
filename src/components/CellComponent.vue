@@ -6,7 +6,7 @@
           'booking': itemData.status === 'Бронь',
           'issued': itemData.status === 'Выданы ключи',
           'installment': itemData.status === 'Рассрочка',
-          'filter': !filterData.includes(itemData),
+          'filter': filterData.length !== 0 && !filterData.includes(itemData),
        }">
     <b>{{ itemData.plan_type }}</b>
     <i v-if="itemData.subsidy" :class="{'subsidy': itemData.subsidy}"></i>
@@ -67,14 +67,14 @@ export default defineComponent({
 
   &.filter {
     background-color: white;
-    & > b {
-      font-size: 0;
-    }
     & > i {
       display: none;
     }
     &.booking, &.success, &.issued, &.busy {
-      opacity: 0;
+      background-color: white;
+      & >b {
+        color: white;
+      }
     }
   }
 

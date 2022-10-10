@@ -19,7 +19,7 @@
           v-for="(flat, idx) of floor.flats"
           :key="flat.id"
           :class="{'bg-gray': flat.number === hovered.col && hovered.table === entrance.id}"
-          @click="getId(flat.id)"
+          @click="filterData.length !== 0 && filterData.includes(data.flats[flat.id]) && getId(flat.id)"
           @mouseenter="hoverCol(idx + 1)">
 
           <CellComponent
@@ -88,11 +88,10 @@ export default defineComponent({
       type: Array as PropType<FlatType[]>,
     }
   },
-  setup(props) {
+  setup() {
     const {hovered, hoverTable, hoverCol, hoverRow, clearHover} = useHoverTable()
     const {id, open, getId} = useShowDialog()
     const {filterData} = useFilterStore();
-    console.log(props.filter);
     return {hovered, hoverTable, hoverCol, hoverRow, clearHover, open, getId, id, filterData};
   }
 })
