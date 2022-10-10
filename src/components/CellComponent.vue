@@ -66,7 +66,7 @@ export default defineComponent({
   background-color: rgba(68, 67, 67, 0.51);
 
   &.filter {
-    opacity: 0;
+    opacity: 0.2;
     & > i {
       display: none;
     }
