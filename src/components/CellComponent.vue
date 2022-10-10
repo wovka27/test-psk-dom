@@ -19,10 +19,10 @@
     <q-tooltip :delay="500">
       <div class="row justify-between bi-align-center">
         <b class="text-subtitle2"
-          >{{ itemData.plan_type }} - {{ itemData.type }}</b
+        >{{ itemData.plan_type }} - {{ itemData.type }}</b
         >
         <b class="text-subtitle2 q-ml-lg"
-          >№{{ itemData.number }}
+        >№{{ itemData.number }}
           {{ itemData.renovation ? 'с ремонтом' : '' }}</b
         >
       </div>
@@ -48,9 +48,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue';
-import { FlatType } from 'src/types';
-import { useFilterStore } from 'stores/filter-store';
+import {defineComponent, PropType} from 'vue';
+import {FlatType} from 'src/types';
+import {useFilterStore} from 'stores/filter-store';
 
 export default defineComponent({
   name: 'CellComponent',
@@ -63,8 +63,8 @@ export default defineComponent({
     },
   },
   setup() {
-    const { filterData } = useFilterStore();
-    return { filterData };
+    const {filterData} = useFilterStore();
+    return {filterData};
   },
 });
 </script>
@@ -80,6 +80,7 @@ export default defineComponent({
 
   &.filter {
     opacity: 0.2;
+
     & > i {
       display: none;
     }
