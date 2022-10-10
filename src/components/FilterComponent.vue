@@ -1,5 +1,5 @@
 <template>
-  <div class="q-pa-md">
+  <div class="q-pa-md row justify-between">
     <q-btn-group rounded>
       <q-btn
         @click="setFilterData(filter.dataCount)"
@@ -40,11 +40,20 @@
         </q-list>
       </q-btn-dropdown>
     </q-btn-group>
+    <div style="width: 200px">
+      <q-badge color="primary" > По цене </q-badge>
+      <q-range
+        @change="onChange"
+        v-model="standard"
+        :min="500000"
+        :max="100E6"
+      />
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import {defineComponent, PropType} from 'vue'
+import {defineComponent, PropType, ref} from 'vue'
 import {FlatType} from 'src/types';
 import {useFilterStore} from 'stores/filter-store';
 
@@ -65,9 +74,16 @@ export default defineComponent({
       required: true,
     },
   },
-  setup() {
+  setup(props) {
     const {setFilterData} = useFilterStore()
-    return {setFilterData}
+    const standard = ref<{min?: number; max?: number}>({})
+    const onChange = (value: {min: number; max: number}) => {
+      const arr = (!isNaN(value.min) && !isNaN(value.max)) && props.filter.dataCount.filter(item => item.cost >= value.min && item.cost <= value.max)
+      if (arr) {
+        setFilterData(arr)
+      }
+    }
+    return {setFilterData, onChange, standard}
   }
 })
 </script>
