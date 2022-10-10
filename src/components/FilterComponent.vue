@@ -98,14 +98,15 @@ export default defineComponent({
     const {setFilterData} = useFilterStore()
     const standard = ref<{ min?: number; max?: number }>({})
     const square = ref<{ min?: number; max?: number }>({})
-    const onChangeHOF = (key: keyof FlatType | null) => (value: { min: number; max: number }) => {
+    const onChangeItem = (key: keyof FlatType | null) => (value: { min: number; max: number }) => {
       const arr = (!isNaN(value.min) && !isNaN(value.max))  && props.filter.dataCount.filter(item => item[key] && item[key] >= value.min && item[key] <= value.max)
       if (arr) {
         setFilterData(arr);
       }
     }
-    const onChangePrice = onChangeHOF('cost');
-    const onChangeSquare = onChangeHOF('square');
+    const onChangePrice = onChangeItem('cost');
+    const onChangeSquare = onChangeItem('square');
+
     return {setFilterData, onChangePrice, standard, onChangeSquare, square}
   }
 })
