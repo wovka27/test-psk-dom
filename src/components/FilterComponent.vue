@@ -1,26 +1,39 @@
 <template>
   <div class="q-pa-md">
     <q-btn-group rounded>
-      <q-btn @click="setFilterData(filter.dataCount)" rounded color="secondary" :label="`Найдено(${filter.dataCount.length})`"/>
+      <q-btn
+        @click="setFilterData(filter.dataCount)"
+        rounded
+        color="secondary"
+        :label="`Найдено(${filter.dataCount.length})`"/>
 
-      <q-btn @click="setFilterData(filter.bookingDataCount)" rounded color="warning" :label="`Бронь(${filter.bookingDataCount.length})`"/>
-      <q-btn @click="setFilterData(filter.freeDataCount)" rounded color="positive" :label="`Свободно(${filter.freeDataCount.length})`"/>
+      <q-btn
+        @click="setFilterData(filter.bookingDataCount)"
+        rounded
+        color="warning"
+        :label="`Бронь(${filter.bookingDataCount.length})`"/>
+
+      <q-btn
+        @click="setFilterData(filter.freeDataCount)"
+        rounded
+        color="positive"
+        :label="`Свободно(${filter.freeDataCount.length})`"/>
 
       <q-btn-dropdown auto-close rounded color="primary" label="Еще" split>
         <q-list padding style="width: 250px">
-          <q-item clickable>
+          <q-item clickable @click="setFilterData(filter.installmentCount)">
             <q-item-section>
-              <q-item-label>Рассрочка</q-item-label>
+              <q-item-label>Рассрочка({{ filter.installmentCount.length }})</q-item-label>
             </q-item-section>
           </q-item>
-          <q-item clickable>
+          <q-item clickable @click="setFilterData(filter.subsidyCount)">
             <q-item-section>
-              <q-item-label>Субсидия</q-item-label>
+              <q-item-label>Субсидия({{ filter.subsidyCount.length }})</q-item-label>
             </q-item-section>
           </q-item>
-          <q-item clickable>
+          <q-item clickable @click="setFilterData(filter.renovationCount)">
             <q-item-section>
-              <q-item-label>Ремонт</q-item-label>
+              <q-item-label>Ремонт({{ filter.renovationCount.length }})</q-item-label>
             </q-item-section>
           </q-item>
 
@@ -52,7 +65,7 @@ export default defineComponent({
       required: true,
     },
   },
-  setup(){
+  setup() {
     const {setFilterData} = useFilterStore()
     return {setFilterData}
   }

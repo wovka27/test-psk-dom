@@ -92,13 +92,15 @@ export default defineComponent({
     const {hovered, hoverTable, hoverCol, hoverRow, clearHover} = useHoverTable()
     const {id, open, getId} = useShowDialog()
     const {filterData} = useFilterStore();
-    const getItem = (id: string) => {
+    const getCallback = (cb: (id: string) => void) => (id: string) => {
       if (filterData.length !== 0 && props.data && filterData.includes(props.data.flats[id])) {
-        getId(id);
+        cb(id);
       } else if (filterData.length === 0) {
-        getId(id)
+        cb(id)
       }
     }
+    const getItem = getCallback(getId)
+
     return {hovered, hoverTable, hoverCol, hoverRow, clearHover, open, getId, id, filterData, getItem};
   }
 })
