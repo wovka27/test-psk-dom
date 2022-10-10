@@ -31,13 +31,10 @@ export const useFilter = (data: DataType) => {
   const onChangeItem =
     (key: keyof FlatType | null) => (value: { min: number; max: number }) => {
       const arr = computed(
-        () =>
-          !isNaN(value.min) &&
-          !isNaN(value.max) &&
-          refData.filter(
-            (item) =>
-              item[key] && item[key] >= value.min && item[key] <= value.max
-          )
+        () => refData.filter(
+          (item) =>
+            item[key] && item[key] >= value.min && item[key] <= value.max
+        )
       );
       if (arr.value) {
         setFilterData(arr.value);
