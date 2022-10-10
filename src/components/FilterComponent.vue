@@ -54,7 +54,7 @@
         :min="Math.min(...filter.dataCount.map(item=>item.cost))"
         :max="Math.max(...filter.dataCount.map(item=>item.cost))"
       />
-      <b>min {{  isNaN(standard.min) ? '' : standard.min }} - max {{ standard.max }}</b>
+      <b>min {{  isNaN(standard.min) ? '0' : standard.min }} - max {{ standard.max }}</b>
     </div>
     <q-separator class="q-mt-md q-mb-md"/>
     <div style="width: 200px">
@@ -65,7 +65,7 @@
         :min="Math.min(...filter.dataCount.map(item=>item.square))"
         :max="Math.max(...filter.dataCount.map(item=>item.square))"
       />
-      <b>min {{ isNaN(square.min) ? '' : square.min }} - max {{ square.max }}</b>
+      <b>min {{ isNaN(square.min) ? '0' : square.min }} - max {{ square.max }}</b>
     </div>
     <q-separator class="q-mt-md q-mb-md"/>
 
