@@ -1,5 +1,6 @@
-import {ref} from 'vue'
+import {computed, ref} from 'vue'
 import {DataType, FlatType, StatusApartmentEnum} from 'src/types';
+import {useFilterStore} from 'stores/filter-store';
 
 export type PredicateType<P> = (value: P, index: number, array: P[]) => boolean
 
@@ -8,34 +9,35 @@ const getCount = <T>(data: T[], predicate: PredicateType<T>) => {
 }
 
 export const useFilter = (data: DataType) => {
-  const arr: FlatType[] = Object.values(data.flats);
-  const dataCount = ref<FlatType[]>(arr).value;
+  const {setFilterData, filterData} = useFilterStore()
+  const refData = ref<FlatType[]>(Object.values(data.flats)).value;
 
-  const bookingData = ref<FlatType[]>(getCount(arr, (value) => value.status === StatusApartmentEnum.BOOKING)).value;
-  const issuedData = ref<FlatType[]>(getCount(arr, (value) => value.status === StatusApartmentEnum.ISSUED)).value;
-  const freeData = ref<FlatType[]>(getCount(arr, (value) => value.status === StatusApartmentEnum.FREE)).value;
+  const bookingData = computed(() => getCount(refData, (value) => value.status === StatusApartmentEnum.BOOKING));
+  const issuedData = computed(() => getCount(refData, (value) => value.status === StatusApartmentEnum.ISSUED));
+  const freeData = computed(() => getCount(refData, (value) => value.status === StatusApartmentEnum.FREE));
+  const subsidy = computed(() => getCount(refData, (value) => value.subsidy));
+  const installment = computed(() => getCount(refData, (value) => value.installment));
+  const renovation = computed(() => getCount(refData, (value) => value.renovation));
+  const marginal = computed(() => getCount(refData, (value) => value.marginal));
 
-  const subsidy = ref<FlatType[]>(getCount(arr, (value) => value.subsidy)).value;
-  const installment = ref<FlatType[]>(getCount(arr, (value) => value.installment)).value;
-  const renovation = ref<FlatType[]>(getCount(arr, (value) => value.renovation)).value;
-  const marginalData = ref<FlatType[]>(getCount(arr, (value) => value.marginal)).value;
-
-  const filterData = ref<FlatType[]>([]);
-
-  const setFilterData = (data: FlatType[]) => {
-    filterData.value = data
-  };
+  const onChangeItem = (key: keyof FlatType | null) => (value: { min: number; max: number }) => {
+    const arr = computed(() => (!isNaN(value.min) && !isNaN(value.max)) && refData.filter(item => item[key] && item[key] >= value.min && item[key] <= value.max))
+    if (arr.value) {
+      setFilterData(arr.value);
+    }
+  }
 
   return {
-    dataCount,
-    bookingDataCount: bookingData,
-    issuedDataCount: issuedData,
-    subsidyCount: subsidy,
-    installmentCount: installment,
-    renovationCount: renovation,
-    freeDataCount: freeData,
+    refData,
+    bookingData,
+    issuedData,
+    subsidy,
+    installment,
+    renovation,
+    freeData,
     setFilterData,
     filterData,
-    marginalData
+    marginal,
+    onChangeItem,
   };
 }

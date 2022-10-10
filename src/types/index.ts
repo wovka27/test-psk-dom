@@ -45,3 +45,19 @@ export enum StatusApartmentEnum {
   BOOKING = 'Бронь',
   CONTRACT = 'Договор',
 }
+
+export type MinMaxType = { min: number; max: number }
+export type ItemType = { text: string; arr: FlatType[] }
+
+export type FilterType = {
+  refData: FlatType[];
+  bookingData: FlatType[];
+  issuedData: FlatType[];
+  subsidy: FlatType[];
+  installment: FlatType[];
+  renovation: FlatType[];
+  freeData: FlatType[];
+  marginal: FlatType[];
+  setFilterData: (d: FlatType[]) => void;
+  onChangeItem: (key: keyof FlatType | null) => (value: MinMaxType) => void;
+}

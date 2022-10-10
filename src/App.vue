@@ -3,9 +3,17 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import {defineComponent, onMounted} from 'vue';
+import {useDataStore} from 'stores/data-store';
 
 export default defineComponent({
   name: 'App',
+  setup() {
+    const {getData} = useDataStore();
+
+    onMounted(async () => {
+      await getData()
+    })
+  }
 });
 </script>

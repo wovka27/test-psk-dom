@@ -1,8 +1,6 @@
 <template>
   <q-page class="column-lg justify-center">
-    <Suspense>
-      <ContainerComponent />
-    </Suspense>
+    <ContainerComponent/>
   </q-page>
 </template>
 
