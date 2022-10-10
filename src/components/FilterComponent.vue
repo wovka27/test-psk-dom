@@ -29,7 +29,7 @@
         :min="rangeState.price.min"
         :max="rangeState.price.max"
       />
-      <b>min {{ isNaN(rangeState.price.min) ? '0' : rangeState.price.min }} - max {{ rangeState.price.max }}</b>
+      <b>min {{ rangeState.price.min }} - max {{ rangeState.price.max }}</b>
     </div>
     <q-separator class="q-mt-md q-mb-md"/>
     <div style="width: 200px">
@@ -40,7 +40,7 @@
         :min="rangeState.square.min"
         :max="rangeState.square.max"
       />
-      <b>min {{ isNaN(rangeState.square.min) ? '0' : rangeState.square.min }} - max {{ rangeState.square.max }}</b>
+      <b>min {{ rangeState.square.min }} - max {{ rangeState.square.max }}</b>
     </div>
     <q-separator class="q-mt-md q-mb-md"/>
 
