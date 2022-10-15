@@ -1,6 +1,6 @@
 <template>
   <q-page class="column-lg justify-center">
-    <ContainerComponent/>
+    <container-component />
   </q-page>
 </template>
 

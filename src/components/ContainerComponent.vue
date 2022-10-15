@@ -1,7 +1,7 @@
 <template>
   <div>
-    <FilterComponent :data="data" :filter="filter"/>
-    <GPListComponent :data="data"/>
+    <filter-component :data="data" :filter="filter"/>
+    <g-p-list-component :data="data"/>
   </div>
 </template>
 

@@ -25,7 +25,7 @@
           @click="getItem(flat.id)"
           @mouseenter="hoverCol(idx + 1)"
         >
-          <CellComponent
+          <cell-component
             :status="data.flats[flat.id].status"
             :subsidy="data.flats[flat.id].subsidy"
             :renovation="data.flats[flat.id].renovation"
