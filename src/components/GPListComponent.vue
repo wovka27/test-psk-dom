@@ -13,17 +13,17 @@
         :class="{ 'bg-gray': floor.floor === hovered.row }"
         @mouseenter="hoverRow(floor.floor)"
       >
-        <td v-if="index === 0 || index === 1">{{ floor.floor }}</td>
+        <td v-if="index < 2">{{ floor.floor }}</td>
 
         <td
-          v-for="(flat, idx) of floor.flats"
+          v-for="flat of floor.flats"
           :key="flat.id"
           :class="{
               'bg-gray':
                 flat.number === hovered.col && hovered.table === entrance.id,
             }"
           @click="getItem(flat.id)"
-          @mouseenter="hoverCol(idx + 1)"
+          @mouseenter="hoverCol(flat.number)"
         >
           <cell-component
             :status="data.flats[flat.id].status"
